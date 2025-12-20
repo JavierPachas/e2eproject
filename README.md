@@ -49,3 +49,6 @@ The app expects the following fields:
 
 ## Notebooks
 The notebooks in `notebook/` cover exploratory data analysis and model training. They can be used to reproduce or refine the model.
+
+
+https://github.com/JavierPachas/e2eproject/blob/main/img/home.png
