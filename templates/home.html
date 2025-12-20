@@ -1,8 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prediction Result</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0b1b37;
+        --ink-muted: #4a5a78;
+        --primary: #1f5fbf;
+        --primary-dark: #174a99;
+        --primary-soft: #e6f0ff;
+        --card: #ffffff;
+        --border: rgba(11, 27, 55, 0.12);
+        --shadow: 0 24px 60px rgba(11, 27, 55, 0.15);
+        --page: #f4f8ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Segoe UI", Tahoma, sans-serif;
+        color: var(--ink);
+        background: radial-gradient(1100px 600px at 80% -10%, #d1e4ff 0, transparent 60%),
+          radial-gradient(900px 600px at 0% 10%, #c7ddff 0, transparent 55%), var(--page);
+        min-height: 100vh;
+      }
+
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+      }
+
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand-mark {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: linear-gradient(145deg, var(--primary), #3a80df);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 10px 24px rgba(31, 95, 191, 0.35);
+      }
+
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .brand-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .brand-sub {
+        margin: 0;
+        font-size: 13px;
+        color: var(--ink-muted);
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(11, 27, 55, 0.08);
+      }
+
+      .card h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--ink-muted);
+      }
+
+      .score {
+        margin-top: 20px;
+        padding: 18px 20px;
+        border-radius: 16px;
+        background: var(--primary-soft);
+        border: 1px solid rgba(31, 95, 191, 0.3);
+        color: var(--primary-dark);
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .score-muted {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ink-muted);
+      }
+
+      .actions {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+        font-family: inherit;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), #2a7ae8);
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(31, 95, 191, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 30px rgba(31, 95, 191, 0.32);
+      }
 
 
-<form action="{{url_for('predict_datapoint')}}" method="post">
+      @media (max-width: 640px) {
+        .card {
+          padding: 22px;
+        }
 
+        .card h1 {
+          font-size: 24px;
+        }
 
-<h2> 
-    The prediction is : {{ results }}
-</h2>
+        .score {
+          font-size: 26px;
+        }
+
+        .site-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <div class="brand">
+          <div class="brand-mark">SP</div>
+          <div class="brand-text">
+            <p class="brand-title">Student Performance</p>
+            <p class="brand-sub">Prediction Summary</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="card">
+        <h1>Prediction Result</h1>
+        {% if results is defined %}
+        <p>Your predicted math score based on the submitted profile.</p>
+        <div class="score">{{ results }}</div>
+        {% else %}
+        <p class="score-muted">No prediction yet. Submit the form to generate a result.</p>
+        {% endif %}
+        <div class="actions">
+          <a class="btn btn-primary" href="{{ url_for('index') }}">Start a new prediction</a>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
